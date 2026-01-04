@@ -1,38 +1,40 @@
-Gold Layer Data Quality & Integrity Checks
+-- Gold Layer Data Quality & Integrity Checks
 
-This script validates key integrity and fact–dimension relationships in the Gold layer to ensure the analytical model is reliable.
+-- This script validates key integrity and fact–dimension relationships in the Gold layer to ensure the analytical model is reliable.
 
-1️⃣ Customer Dimension – Surrogate Key Uniqueness
+-- 1️⃣ Customer Dimension – Surrogate Key Uniqueness
 
 SELECT customer_key, COUNT(*)
 FROM gold.dim_customers
 GROUP BY customer_key
 HAVING COUNT(*) > 1;
 
-
+/*
 Purpose:
 - Verifies that customer_key is unique in the customer dimension
 - Ensures no duplicate surrogate keys exist
 
 Expectation:
 - No rows returned
+*/
 
-2️⃣ Product Dimension – Surrogate Key Uniqueness
+-- 2️⃣ Product Dimension – Surrogate Key Uniqueness
 
 SELECT product_key, COUNT(*)
 FROM gold.dim_products
 GROUP BY product_key
 HAVING COUNT(*) > 1;
 
-
+/*
 Purpose:
 - Confirms product_key uniqueness in the product dimension
 - Prevents duplicate product records in analytics
 
 Expectation:
 - No rows returned
+*/
 
-3️⃣ Fact–Dimension Referential Integrity Check
+-- 3️⃣ Fact–Dimension Referential Integrity Check
 
 SELECT *
 FROM gold.fact_sales f
@@ -43,7 +45,7 @@ LEFT JOIN gold.dim_products p
 WHERE p.product_key IS NULL
    OR c.customer_key IS NULL;
 
-
+/*
 Purpose:
 - Validates that every fact record correctly links to:
 - a valid customer (dim_customers)
@@ -59,3 +61,4 @@ Why these checks matter:
 - Ensures a proper star schema
 - Prevents incorrect aggregations in BI tools
 - Confirms Gold layer is production-ready
+*/
