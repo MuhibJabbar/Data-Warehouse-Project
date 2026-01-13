@@ -1,4 +1,4 @@
-# 🏗️ SQL Data Warehouse Project (Bronze → Silver → Gold)
+# Enterprise SQL Data Warehouse Design & ETL Implementation
 
 ## 📌 Project Overview
 This project demonstrates the design and implementation of a **modern SQL Server–based data warehouse** using a layered architecture:
